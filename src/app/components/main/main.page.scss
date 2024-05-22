@@ -1,0 +1,23 @@
+.main-container {
+  width: 80%;
+  margin: 100px auto;
+
+  .primary {
+    width: 240px;
+    margin: 16px;
+  }
+  .home-button {
+    margin: 100px 16px 16px;
+  }
+
+  ppf-card {
+    width: 60%;
+    margin-bottom: 32px;
+    box-shadow: 0 0 48px 0 rgba(4, 50, 82, 0.06);
+  }
+
+  .process-selector {
+    margin: 0 16px 16px 16px;
+    width: 240px;
+  }
+}
