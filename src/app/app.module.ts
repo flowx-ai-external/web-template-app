@@ -21,6 +21,7 @@ import {
   FlxCardModule,
   FlxFormControlModule,
   FlxIconModule,
+  provideExtraIconSet,
 } from '@flowx/ui-toolkit';
 import { FlxThemeModule } from '@flowx/ui-theme';
 
@@ -35,9 +36,7 @@ import { FlxThemeModule } from '@flowx/ui-theme';
     FormsModule,
     ReactiveFormsModule,
     FlexModule,
-    FlxIconModule.withExtraIconSet({
-      logoutIcon,
-    }),
+    FlxIconModule,
     AuthConfigModule,
     FlxButtonModule,
     FlxCardModule,
@@ -50,6 +49,7 @@ import { FlxThemeModule } from '@flowx/ui-theme';
     { provide: 'PROCESS_API_PATH', useValue: environment.processApiPath },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    provideExtraIconSet({logoutIcon})
   ],
   bootstrap: [AppComponent],
 })
