@@ -12,11 +12,17 @@ import { LocalizationService } from '../../services/localization.service';
 export class ProcessComponent implements OnInit, OnDestroy {
   public apiUrl = this.baseApiUrl;
   public staticUrl = this.staticAssetsUrl;
-  public processName = '';
-  public processStartData: any;
   public processPath = this.processApiPath;
-  public language = '';
+  
+  public processStartData = {};
+  public processName = 'PROCESS_NAME';
+  public themeId = 'THEME_ID';
+  public appInfo = {appId: 'APP_ID'}
+  public language = 'LANGUAGE';
+  public locale= 'LOCALE'
+  
   accessToken = localStorage.getItem('access_token') || '';
+  
 
   subscription: Subscription = new Subscription();
 
