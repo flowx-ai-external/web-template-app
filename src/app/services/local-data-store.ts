@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ClientStoreInterface } from '@flowx/core-sdk';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {ClientStoreInterface} from '@flowx/ui-sdk';
 
 @Injectable({
     providedIn: 'root',

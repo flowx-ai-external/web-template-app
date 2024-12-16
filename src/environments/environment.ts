@@ -8,22 +8,22 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://admin.devmain.flowxai.dev',
-  staticAssetsPath: 'https://d22tnnndi9lo60.cloudfront.net/devmain',
+  baseUrl: 'BASE_URL',
+  staticAssetsPath: 'STATIC_ASSETS_PATH',
 
   processApiPath: '/onboarding',
   scanTimeout: 50000,
 
   keycloak: {
     // Url of the Identity Provider
-    issuer: 'https://auth.devmain.flowxai.dev/auth/realms/paperflow',
+    issuer: 'KEYCLOAK_ISSUER',
 
     // URL of the SPA to redirect the user to after login
-    redirectUri: 'http://localhost:4200/',
+    redirectUri: 'REDIRECT_URI',
 
     // The SPA's id.
     // The SPA is registerd with this id at the auth-serverß
-    clientId: 'paperflow',
+    clientId: 'CLIENT_ID',
 
     responseType: 'code',
     // set the scope for the permissions the client should request

@@ -2,9 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'my-custom-component',
-  templateUrl: './my-custom.component.html',
-  styleUrls: ['./my-custom.component.scss']
+    selector: 'my-custom-component',
+    templateUrl: './my-custom.component.html',
+    styleUrls: ['./my-custom.component.scss'],
+    standalone: false
 })
 export class MyCustomComponent implements OnInit {
   @Input() data$: Observable<any> | null = null;

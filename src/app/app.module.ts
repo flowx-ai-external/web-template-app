@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,35 +22,29 @@ import {
   FlxFormControlModule,
   FlxIconModule,
   provideExtraIconSet,
-} from '@flowx/ui-toolkit';
-import { FlxThemeModule } from '@flowx/ui-theme';
+} from '@flowx/angular-ui-toolkit';
+import { FlxThemeModule } from '@flowx/angular-theme';
 
-@NgModule({
-  declarations: [AppComponent, MyCustomComponent, HeaderComponent, MainPage],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FlexModule,
-    FlxIconModule,
-    AuthConfigModule,
-    FlxButtonModule,
-    FlxCardModule,
-    FlxFormControlModule,
-    FlxThemeModule,
-  ],
-  providers: [
-    { provide: 'BASE_URL', useValue: environment.baseUrl },
-    { provide: 'STATIC_ASSETS_URL', useValue: environment.staticAssetsPath },
-    { provide: 'PROCESS_API_PATH', useValue: environment.processApiPath },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    provideExtraIconSet({logoutIcon})
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent, MyCustomComponent, HeaderComponent, MainPage],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FlexModule,
+        FlxIconModule,
+        AuthConfigModule,
+        FlxButtonModule,
+        FlxCardModule,
+        FlxFormControlModule,
+        FlxThemeModule], providers: [
+        { provide: 'BASE_URL', useValue: environment.baseUrl },
+        { provide: 'STATIC_ASSETS_URL', useValue: environment.staticAssetsPath },
+        { provide: 'PROCESS_API_PATH', useValue: environment.processApiPath },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        provideExtraIconSet({ logoutIcon }),
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {}

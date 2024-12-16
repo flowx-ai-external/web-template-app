@@ -1,13 +1,15 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, DestroyRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { LocalizationService } from '../../services/localization.service';
-
+import { OAuthService } from 'angular-oauth2-oidc';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
-  selector: 'app-modules',
-  templateUrl: './process.component.html',
-  styleUrls: ['./process.component.scss'],
+    selector: 'app-modules',
+    templateUrl: './process.component.html',
+    styleUrls: ['./process.component.scss'],
+    standalone: false
 })
 export class ProcessComponent implements OnInit, OnDestroy {
   public apiUrl = this.baseApiUrl;
@@ -17,7 +19,7 @@ export class ProcessComponent implements OnInit, OnDestroy {
   public processStartData = {};
   public processName = 'PROCESS_NAME';
   public themeId = 'THEME_ID';
-  public appInfo = {appId: 'APP_ID'}
+  public projectInfo = {projectId: 'PROJECT_ID'}
   public language = 'LANGUAGE';
   public locale= 'LOCALE'
   
@@ -31,22 +33,35 @@ export class ProcessComponent implements OnInit, OnDestroy {
     @Inject('STATIC_ASSETS_URL') private staticAssetsUrl: string,
     @Inject('PROCESS_API_PATH') private processApiPath: string,
     private route: ActivatedRoute,
-    private localizationService: LocalizationService
+    private localizationService: LocalizationService,
+    private authService: OAuthService,
+    private destroyRef: DestroyRef
   ) {}
 
   ngOnInit(): void {
     this.subscription.add(
       this.route.paramMap
-        .pipe(map(() => window.history.state))
+        .pipe(first(), map(() => window.history.state))
         .subscribe((state) => {
-          this.processName = state.processName?.label || state.processName;
+          this.processName = state.processName || this.processName;
+          this.projectInfo = {projectId: state.projectId || this.projectInfo.projectId};
           this.processStartData = {
             ...state.processStartData,
           };
           this.language = this.localizationService.getSelectedLanguage().value;
         })
     );
+
+    this.subscription.add(
+      this.authService.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
+        if (event.type === 'token_received') {  
+          this.accessToken = this.authService.getAccessToken()
+        }
+      })
+    )
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }
