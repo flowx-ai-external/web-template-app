@@ -1,5 +1,5 @@
 import {NgModule, APP_INITIALIZER} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {OAuthModule, AuthConfig} from 'angular-oauth2-oidc';
 
 import {authConfig, OAuthModuleConfig} from './auth.config';
@@ -11,19 +11,14 @@ export function init_app(authConfigService: AuthConfigService): () => Promise<an
     return () => authConfigService.initAuth();
 }
 
-@NgModule({
-    imports: [
-        HttpClientModule,
-        OAuthModule.forRoot({
+@NgModule({ imports: [OAuthModule.forRoot({
             resourceServer: {
                 allowedUrls: [`${environment.baseUrl}`],
                 sendAccessToken: true,
             },
-        }),
-    ],
-    providers: [
+        })], providers: [
         AuthConfigService,
-        {provide: AuthConfig, useValue: authConfig},
+        { provide: AuthConfig, useValue: authConfig },
         OAuthModuleConfig,
         {
             provide: APP_INITIALIZER,
@@ -31,7 +26,7 @@ export function init_app(authConfigService: AuthConfigService): () => Promise<an
             deps: [AuthConfigService],
             multi: true,
         },
-    ],
-})
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AuthConfigModule {
 }
