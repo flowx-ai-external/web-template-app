@@ -1,13 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { LocalizationService } from '../../services/localization.service';
 
 @Component({
-  selector: 'app-modules',
-  templateUrl: './process.component.html',
-  styleUrls: ['./process.component.scss'],
+    selector: 'app-modules',
+    templateUrl: './process.component.html',
+    styleUrls: ['./process.component.scss'],
+    standalone: false
 })
 export class ProcessComponent implements OnInit, OnDestroy {
   public apiUrl = this.baseApiUrl;
@@ -17,7 +18,7 @@ export class ProcessComponent implements OnInit, OnDestroy {
   public processStartData = {};
   public processName = 'PROCESS_NAME';
   public themeId = 'THEME_ID';
-  public appInfo = {appId: 'APP_ID'}
+  public projectInfo = {projectId: 'PROJECT_ID'}
   public language = 'LANGUAGE';
   public locale= 'LOCALE'
   
@@ -37,9 +38,11 @@ export class ProcessComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription.add(
       this.route.paramMap
-        .pipe(map(() => window.history.state))
+        .pipe(first(), map(() => window.history.state))
         .subscribe((state) => {
-          this.processName = state.processName?.label || state.processName;
+          console.log(state)
+          this.processName = state.processName || this.processName;
+          this.projectInfo = {projectId: state.projectId || this.projectInfo.projectId};
           this.processStartData = {
             ...state.processStartData,
           };

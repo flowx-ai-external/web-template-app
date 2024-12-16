@@ -4,17 +4,16 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.page.html',
-  styleUrls: ['./main.page.scss'],
+    selector: 'app-main',
+    templateUrl: './main.page.html',
+    styleUrls: ['./main.page.scss'],
+    standalone: false
 })
 export class MainPage implements OnInit {
   baseUrl = environment.baseUrl;
-  selectedProcessId = '';
 
   constructor(
     private router: Router,
-    private oauthService: OAuthService,
     private activeRoute: ActivatedRoute
   ) {}
 
@@ -27,16 +26,17 @@ export class MainPage implements OnInit {
     }
   }
 
-  startProcess(processName?: any, startCondition?: any): any {
-    const startData: any = {};
+  startProcess(processName?: any, projectId?: any, startCondition?: any): any {
+    const processStartData: any = {};
     if (startCondition) {
-      startData.startCondition = startCondition;
+      processStartData.startCondition = startCondition;
     }
 
     this.router.navigate(['/process'], {
       state: {
-        processName: processName || this.selectedProcessId,
-        processStartData: startData,
+        processName,
+        projectId,
+        processStartData,
       },
     });
   }
