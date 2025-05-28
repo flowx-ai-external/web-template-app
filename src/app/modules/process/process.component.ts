@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { LocalizationService } from '../../services/localization.service';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AnalyticsData } from '@flowx/core-sdk'
 @Component({
     selector: 'app-modules',
     templateUrl: './process.component.html',
@@ -15,16 +16,15 @@ export class ProcessComponent implements OnInit, OnDestroy {
   public apiUrl = this.baseApiUrl;
   public staticUrl = this.staticAssetsUrl;
   public processPath = this.processApiPath;
-  
+
   public processStartData = {};
   public processName = 'PROCESS_NAME';
   public themeId = 'THEME_ID';
   public projectInfo = {projectId: 'PROJECT_ID'}
   public language = 'LANGUAGE';
   public locale= 'LOCALE'
-  
+
   accessToken = localStorage.getItem('access_token') || '';
-  
 
   subscription: Subscription = new Subscription();
 
@@ -37,6 +37,10 @@ export class ProcessComponent implements OnInit, OnDestroy {
     private authService: OAuthService,
     private destroyRef: DestroyRef
   ) {}
+
+  analyticsListener = (event: CustomEvent<AnalyticsData>) => {
+    console.log('Received flowx:analytics event:', event.detail);
+  }
 
   ngOnInit(): void {
     this.subscription.add(
@@ -54,14 +58,18 @@ export class ProcessComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.authService.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
-        if (event.type === 'token_received') {  
+        if (event.type === 'token_received') {
           this.accessToken = this.authService.getAccessToken()
         }
       })
     )
+
+    document.addEventListener('flowx:analytics', this.analyticsListener);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+
+    document.removeEventListener('flowx:analytics', this.analyticsListener);
   }
 }
