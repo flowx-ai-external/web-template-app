@@ -4,6 +4,7 @@
   [staticAssetsPath]="staticUrl"
   [processName]="processName"
   [processStartData]="processStartData"
+  [workspaceId]="workspaceId"
   [processApiPath]="processPath"
   [debugLogs]="true"
   [language]="language"
@@ -11,4 +12,5 @@
   [themeId]="themeId"
   [projectInfo]="projectInfo"
   [locale]="locale"
+  (processEnd)="onProcessEnd()"
 ></flx-process-renderer>

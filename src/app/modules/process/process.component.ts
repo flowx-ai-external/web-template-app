@@ -23,6 +23,7 @@ export class ProcessComponent implements OnInit, OnDestroy {
   public projectInfo = {projectId: 'PROJECT_ID'}
   public language = 'LANGUAGE';
   public locale= 'LOCALE'
+  public workspaceId = 'WORKSPACE_ID';
 
   accessToken = localStorage.getItem('access_token') || '';
 
@@ -38,8 +39,13 @@ export class ProcessComponent implements OnInit, OnDestroy {
     private destroyRef: DestroyRef
   ) {}
 
-  analyticsListener = (event: CustomEvent<AnalyticsData>) => {
-    console.log('Received flowx:analytics event:', event.detail);
+  analyticsListener = (event: Event) => {
+    const { detail } = event as CustomEvent<AnalyticsData>
+    console.log('Received flowx:analytics event:', detail)
+  }
+
+  onProcessEnd = () => {
+    console.log('Process has ended')
   }
 
   ngOnInit(): void {
