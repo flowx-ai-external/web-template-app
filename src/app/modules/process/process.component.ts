@@ -23,6 +23,7 @@ export class ProcessComponent implements OnInit, OnDestroy {
   public projectInfo = {projectId: 'PROJECT_ID'}
   public language = 'LANGUAGE';
   public locale= 'LOCALE'
+  public workspaceId = 'WORKSPACE_ID';
 
   accessToken = localStorage.getItem('access_token') || '';
 
