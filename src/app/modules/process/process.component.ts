@@ -39,8 +39,9 @@ export class ProcessComponent implements OnInit, OnDestroy {
     private destroyRef: DestroyRef
   ) {}
 
-  analyticsListener = (event: CustomEvent<AnalyticsData>) => {
-    console.log('Received flowx:analytics event:', event.detail)
+  analyticsListener = (event: Event) => {
+    const { detail } = event as CustomEvent<AnalyticsData>
+    console.log('Received flowx:analytics event:', detail)
   }
 
   onProcessEnd = () => {

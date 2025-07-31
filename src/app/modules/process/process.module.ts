@@ -16,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProcessComponent, CustomLoaderComponent],
+  declarations: [ProcessComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
