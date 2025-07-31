@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexModule } from '@angular/flex-layout';
 import { logoutIcon } from './services/icons';
 import { MyCustomComponent } from './components/my-custom-component/my-custom.component';
+import { CustomLoaderComponent } from './components/my-custom-loader/my-custom-loader.component';
 import { MainPage } from './components/main/main.page';
 import { HeaderComponent } from './components/header/header.component';
 import { AuthConfigModule } from './modules/auth/auth.module';
@@ -25,7 +26,7 @@ import {
 } from '@flowx/angular-ui-toolkit';
 import { FlxThemeModule } from '@flowx/angular-theme';
 
-@NgModule({ declarations: [AppComponent, MyCustomComponent, HeaderComponent, MainPage],
+@NgModule({ declarations: [AppComponent, MyCustomComponent, HeaderComponent, MainPage, CustomLoaderComponent],
     bootstrap: [AppComponent], imports: [BrowserModule,
         CommonModule,
         BrowserAnimationsModule,

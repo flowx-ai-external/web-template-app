@@ -40,7 +40,11 @@ export class ProcessComponent implements OnInit, OnDestroy {
   ) {}
 
   analyticsListener = (event: CustomEvent<AnalyticsData>) => {
-    console.log('Received flowx:analytics event:', event.detail);
+    console.log('Received flowx:analytics event:', event.detail)
+  }
+
+  onProcessEnd = () => {
+    console.log('Process has ended')
   }
 
   ngOnInit(): void {

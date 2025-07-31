@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
 @Component({
     selector: 'my-custom-component',
     templateUrl: './my-custom.component.html',
