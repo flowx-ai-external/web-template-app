@@ -1,9 +1,11 @@
-<div *ngIf="data$ | async as data" style="border: 1px solid black; border-radius: 1rem; padding: 1rem">
-  <h1>Custom component</h1>
-  <p>Received Data:</p>
-  <p>{{ inputData }}</p>
+@if (data$() | async; as data) {
+  <div style="border: 1px solid black; border-radius: 1rem; padding: 1rem">
+    <h1>Custom component</h1>
+    <p>Received Data:</p>
+    <p>{{ inputData }}</p>
 
-  <label style="margin-right: 0.5rem">Client name</label>
-  <input [(ngModel)]="name" type="text" style="margin-right: 0.5rem"/>
-  <button flxButton (click)="saveData()" style="margin-top: 20px"> Save Data</button>
-</div>
+    <label style="margin-right: 0.5rem">Client name</label>
+    <input [(ngModel)]="name" type="text" style="margin-right: 0.5rem"/>
+    <button flxButton (click)="saveData()" style="margin-top: 20px"> Save Data</button>
+  </div>
+}

@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+import { FlxHeaderComponent } from './components/header/header.component';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'flx-root',
+  imports: [RouterOutlet, FlxHeaderComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
-  title = 'my-flowx-app';
-
-  ngOnInit(): void {
-  }
-}
+export class AppComponent {}

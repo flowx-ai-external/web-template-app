@@ -1,46 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { OAuthService } from 'angular-oauth2-oidc';
-import {
-  Language,
-  LocalizationService,
-} from '../../services/localization.service';
-import { FormControl, FormGroup } from '@angular/forms';
+
+import { FlxLanguageService } from '../../services/language.service';
+
+import { FlxIconComponent } from '@flowx/angular-ui-toolkit';
+import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-header',
+    selector: 'flx-header',
+    imports: [FlxIconComponent, ReactiveFormsModule, RouterLink],
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: false
+    styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  availableLanguages: Language[] =
-    this.localizationService.getAvailableLanges();
-  selectedLanguage: Language | undefined;
-  languageForm = new FormGroup({
-    selectedLanguage: new FormControl(
-      this.localizationService.getSelectedLanguage()
-    ),
-  });
+export class FlxHeaderComponent implements OnInit {
+  readonly #destroyRef = inject(DestroyRef)
+  readonly languageService = inject(FlxLanguageService)
+  readonly oauthService = inject(OAuthService)
 
-  get languageControl(): FormControl {
-    return this.languageForm.get('selectedLanguage') as FormControl;
-  }
-
-  constructor(
-    private location: Location,
-    private oauthService: OAuthService,
-    private localizationService: LocalizationService
-  ) {}
+  readonly selectedLanguageFC = new FormControl(
+    this.languageService.selectedLanguage(),
+    { nonNullable: true }
+  )
 
   ngOnInit(): void {
-    this.languageForm.valueChanges.subscribe((data: any) => {
-      this.localizationService.setSelectedLanguage(data.selectedLanguage);
+    this.selectedLanguageFC
+      .valueChanges
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe((newLanguage) => {
+        this.languageService.setSelectedLanguage(newLanguage);
       window.location.reload();
     });
   }
-
-  logout(): void {
-    this.oauthService.logOut();
-  }
 }
+

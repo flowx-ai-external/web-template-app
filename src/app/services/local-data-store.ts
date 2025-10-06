@@ -1,27 +1,28 @@
 import { Injectable } from '@angular/core';
-import { ClientStoreInterface } from '@flowx/core-sdk';
 import { BehaviorSubject, Observable } from 'rxjs';
+
+import { ClientStoreInterface } from '@flowx/core-sdk';
 
 @Injectable({
     providedIn: 'root',
 })
 export class LocalDataStoreService implements ClientStoreInterface {
-    private _data: Record<string, any> = {};
+    #data: Record<string, any> = {};
 
-    private set data(data: Record<string, any>) {
-        this._data = data;
-        this.dataStore.next(this._data);
+    set data(data: Record<string, any>) {
+        this.#data = data;
+        this.dataStore.next(this.#data);
     }
 
-    private get data(): Record<string, any> {
-        return this._data;
+    get data(): Record<string, any> {
+        return this.#data;
     }
 
-    private dataStore: BehaviorSubject<Record<string, any>> = new BehaviorSubject<
+    dataStore: BehaviorSubject<Record<string, any>> = new BehaviorSubject<
         Record<string, any>
         >(this.data);
 
-    readonly data$: Observable<Record<string, any>> = this.dataStore.asObservable();
+    readonly data$: any = this.dataStore.asObservable();
 
     /**
      * Set the data store equal to the data object
@@ -29,6 +30,7 @@ export class LocalDataStoreService implements ClientStoreInterface {
      */
     setData(data: Record<string, any>): void {
         this.data = data;
+        this.data$
     }
 
     /**

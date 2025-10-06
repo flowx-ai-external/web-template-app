@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-custom-loader',
@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./my-custom-loader.component.scss']
 })
 export class CustomLoaderComponent {
-  @Input() text: string = 'Loading...';
+   text = input('Loading...');
 }

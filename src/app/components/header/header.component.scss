@@ -1,21 +1,35 @@
-.app-header {
-  height: 65px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 10;
-  padding: 10px 20px;
+:host {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 40px;
+  padding: 12px 24px;
   background-color: white;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 
+  a:has(.flowx-logo),
   .flowx-logo {
-    height: 50px;
+    height: 100%;
   }
 
   .logout {
     width: 24px;
     height: 24px;
     cursor: pointer;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    select {
+      padding: 6px 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   }
 }

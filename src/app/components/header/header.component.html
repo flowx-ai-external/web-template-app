@@ -1,20 +1,13 @@
-<div class="app-header" fxLayout="row" fxLayoutAlign="space-between center">
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <a [routerLink]="['../']" fxLayout="row" fxLayoutAlign="start center">
-      <img class="flowx-logo" alt="flowx logo" src="assets/flowx-black.png" />
-    </a>
-  </div>
-  <div fxLayoutAlign="end center" fxLayout="row" fxLayoutGap="30px">
-    <form [formGroup]="languageForm">
-      <select [formControl]="languageControl">
-        <option
-          *ngFor="let language of availableLanguages"
-          [ngValue]="language"
-        >
-          {{ language.label }}
-        </option>
-      </select>
-    </form>
-    <flx-icon class="logout" name="logoutIcon" (click)="logout()" />
-  </div>
+<a routerLink="../">
+  <img class="flowx-logo" alt="flowx logo" src="flowx-black.png" />
+</a>
+<div class="actions">
+  <select [formControl]="selectedLanguageFC">
+    @for (language of languageService.availableLanguages; track language.value) {
+      <option [value]="language.value">
+        {{ language.label }}
+      </option>
+    }
+  </select>
+  <flx-icon class="logout" name="logoutIcon" (click)="oauthService.logOut()" />
 </div>
