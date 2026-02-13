@@ -4,11 +4,11 @@ Starter template for Angular app with FlowX Renderer SDK.
 
 ## Prerequisites
 
-* `Node.js` min version 20 - [Download Node.js](https://nodejs.org/en/blog/release/v20.19.0)
+* `Node.js` min version 24 - [Download Node.js](https://nodejs.org/en/download)
 
-* `Angular CLI` version 19. Install Angular CLI globally using the following command to install version 19:
+* `Angular CLI` version 20. Install Angular CLI globally using the following command to install version 20:
 ```
-npm install -g @angular/cli@19
+npm install -g @angular/cli@20
 ```
 
 This will allow you to run `ng` related commands from the terminal.
@@ -34,6 +34,7 @@ export const environment = {
   ...
   baseUrl: '<BASE_URL>',
   staticAssetsPath: '<STATIC_ASSETS_PATH>',
+  orgCode: '<ORG_CODE>',
   ...
   keycloak: {
     issuer: '<KEYCLOACK_URL>',
@@ -56,10 +57,12 @@ npm install
 In `src/app/components/process/process.component.ts` file, update the process details parameters:
 
 ```ts
-  processName = 'PROCESS_NAME';
-  themeId = 'THEME_ID';
-  projectInfo = {projectId: 'PROJECT_ID'}
-  workspaceId = 'WORKSPACE_ID';
+  processName = '<PROCESS_NAME>';
+  themeId = '<THEME_ID>';
+  projectInfo = {projectId: '<PROJECT_ID>'}
+  workspaceId = '<WORKSPACE_ID>';
+  language = '<LANGUAGE>';
+  locale= '<LOCALE>';
 ``` 
 
 * Start the Angular Development server:
