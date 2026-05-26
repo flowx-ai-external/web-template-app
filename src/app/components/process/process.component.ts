@@ -45,6 +45,10 @@ export class FlxProcessComponent implements OnInit, OnDestroy {
     console.log('Received flowx:analytics event:', detail);
   };
 
+  onProcessStart(processInstanceUuid: string): void {
+    console.log('Process has started with processInstanceUuid: ', processInstanceUuid)
+  }
+
   onProcessEnd = () => {
     console.log('Process has ended');
   };
