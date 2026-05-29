@@ -36,6 +36,7 @@ export class FlxProcessComponent implements OnInit, OnDestroy {
   workspaceId = '<WORKSPACE_ID>';
   language = '<LANGUAGE>';
   locale = '<LOCALE>';
+  organizationId= '<ORG_ID>';
   processStartData = {};
 
   accessToken = localStorage.getItem('access_token') || '';
