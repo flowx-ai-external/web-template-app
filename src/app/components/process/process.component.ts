@@ -10,7 +10,7 @@ import { first, map } from 'rxjs/operators';
 
 import { OAuthService } from 'angular-oauth2-oidc';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AnalyticsData } from '@flowx/core-sdk';
+import { AnalyticsData, FlxLogEvent } from '@flowx/core-sdk';
 import { ProcessModule } from './process.module';
 import { environment } from '../../../environments/environment';
 import { FlxLanguageService } from '../../services/language.service';
@@ -36,7 +36,12 @@ export class FlxProcessComponent implements OnInit, OnDestroy {
   workspaceId = '<WORKSPACE_ID>';
   language = '<LANGUAGE>';
   locale = '<LOCALE>';
+  organizationId= '<ORG_ID>';
   processStartData = {};
+
+  log = (event: FlxLogEvent) => {
+    console.log('Flowx log:', event);
+  };
 
   accessToken = localStorage.getItem('access_token') || '';
 

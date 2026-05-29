@@ -6,9 +6,9 @@ Starter template for Angular app with FlowX Renderer SDK.
 
 * `Node.js` min version 24 - [Download Node.js](https://nodejs.org/en/download)
 
-* `Angular CLI` version 20. Install Angular CLI globally using the following command to install version 20:
+* `Angular CLI` version 21. Install Angular CLI globally using the following command to install version 21:
 ```
-npm install -g @angular/cli@20
+npm install -g @angular/cli@21
 ```
 
 This will allow you to run `ng` related commands from the terminal.
