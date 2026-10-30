@@ -2,8 +2,8 @@ export const environment = {
   production: true,
   baseUrl: '${BASE_API_URL}',
   adminUrl: '${ADMIN_API_URL}',
-  staticAssetsPath: '${STATIC_ASSETS_PATH}',
-  processApiPath: '${PROCESS_API_PATH}',
+  assetsBaseUrl: '${STATIC_ASSETS_PATH}',
+  enginePath: '${PROCESS_API_PATH}',
   keycloak: {
     // Url of the Identity Provider
     issuer: '${KEYCLOAK_ISSUER}',

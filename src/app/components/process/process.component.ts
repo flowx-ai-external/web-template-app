@@ -10,7 +10,7 @@ import { first, map } from 'rxjs/operators';
 
 import { OAuthService } from 'angular-oauth2-oidc';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AnalyticsData, FlxLogEvent } from '@flowx/core-sdk';
+import { AnalyticsData, formattedLogger, logSink } from '@flowx/core-sdk';
 import { ProcessModule } from './process.module';
 import { environment } from '../../../environments/environment';
 import { FlxLanguageService } from '../../services/language.service';
@@ -26,9 +26,9 @@ export class FlxProcessComponent implements OnInit, OnDestroy {
   #localizationService = inject(FlxLanguageService);
   #destroyRef = inject(DestroyRef);
 
-  apiUrl = environment.baseUrl;
-  staticUrl = environment.staticAssetsPath;
-  processPath = environment.processApiPath;
+  baseUrl = environment.baseUrl;
+  assetsBaseUrl = environment.assetsBaseUrl;
+  enginePath = environment.enginePath;
 
   processName = '<PROCESS_NAME>';
   themeId = '<THEME_ID>';
@@ -39,9 +39,8 @@ export class FlxProcessComponent implements OnInit, OnDestroy {
   organizationId= '<ORG_ID>';
   processStartData = {};
 
-  log = (event: FlxLogEvent) => {
-    console.log('Flowx log:', event);
-  };
+  // Streams REST, SSE and expression events of every renderer to the console
+  #unsubscribeLogs = logSink(formattedLogger);
 
   accessToken = localStorage.getItem('access_token') || '';
 
@@ -82,5 +81,6 @@ export class FlxProcessComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     document.removeEventListener('flowx:analytics', this.analyticsListener);
+    this.#unsubscribeLogs();
   }
 }
