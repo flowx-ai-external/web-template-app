@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { FlxProcessModule } from '@flowx/angular-sdk';
 
 import { LocalDataStoreService } from '../../services/local-data-store';
@@ -11,6 +12,8 @@ import { MyCustomComponent } from '../my-custom-component/my-custom.component';
       customLoader: {
         startProcess: CustomLoaderComponent,
         reloadProcess: CustomLoaderComponent,
+        defaultAction: CustomLoaderComponent,
+        defaultUpload: CustomLoaderComponent,
         actions: {
           action1: CustomLoaderComponent,
           action2: CustomLoaderComponent,
@@ -18,6 +21,13 @@ import { MyCustomComponent } from '../my-custom-component/my-custom.component';
       },
       components: {
         MyCustomComponentIdentifier: MyCustomComponent,
+      },
+      // Keys must match the custom validator names defined in the process
+      validators: {
+        customValidator:
+          (...params: string[]) =>
+          (control: AbstractControl) =>
+            control.value === params[0] ? null : { customValidator: true },
       },
       services: {
         LocalDataStoreService,

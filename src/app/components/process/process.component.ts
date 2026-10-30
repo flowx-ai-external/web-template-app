@@ -10,7 +10,7 @@ import { first, map } from 'rxjs/operators';
 
 import { OAuthService } from 'angular-oauth2-oidc';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AnalyticsData, FlxLogEvent } from '@flowx/core-sdk';
+import { AnalyticsData, formattedLogger } from '@flowx/core-sdk';
 import { ProcessModule } from './process.module';
 import { environment } from '../../../environments/environment';
 import { FlxLanguageService } from '../../services/language.service';
@@ -39,9 +39,8 @@ export class FlxProcessComponent implements OnInit, OnDestroy {
   organizationId= '<ORG_ID>';
   processStartData = {};
 
-  log = (event: FlxLogEvent) => {
-    console.log('Flowx log:', event);
-  };
+  // Pretty-prints REST, SSE and expression events to the console
+  log = formattedLogger;
 
   accessToken = localStorage.getItem('access_token') || '';
 

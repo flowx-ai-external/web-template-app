@@ -1,11 +1,24 @@
-@if (data$() | async; as data) {
+@if (data$() | async) {
   <div style="border: 1px solid black; border-radius: 1rem; padding: 1rem">
+    @if (logoUrl) {
+      <img [src]="logoUrl" alt="logo" height="32" />
+    }
     <h1>Custom component</h1>
     <p>Received Data:</p>
     <p>{{ inputData }}</p>
 
-    <label style="margin-right: 0.5rem">Client name</label>
-    <input [(ngModel)]="name" type="text" style="margin-right: 0.5rem"/>
+    <label style="margin-right: 0.5rem">{{ label }}</label>
+    <input [(ngModel)]="name" (ngModelChange)="onNameChange()" type="text" style="margin-right: 0.5rem"/>
+    @if (submitted() && !name) {
+      <span style="color: red">Required</span>
+    }
+
+    <select style="margin-left: 0.5rem">
+      @for (option of options(); track option.id) {
+        <option [value]="option.value">{{ option.label }}</option>
+      }
+    </select>
+
     <button flxButton (click)="saveData()" style="margin-top: 20px"> Save Data</button>
   </div>
 }
